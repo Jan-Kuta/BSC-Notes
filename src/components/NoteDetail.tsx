@@ -22,9 +22,14 @@ type Props = RouteComponentProps<MatchParams>
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        marginTop: '20px',
         width: '100%',
         maxWidth: '36ch',
         backgroundColor: theme.palette.background.paper,
+    },
+    header: {
+        display: 'flex',
+        flexFlow: 'row-reverse'
     },
     inline: {
         display: 'inline',
@@ -55,6 +60,7 @@ const PureNoteDetail = ({ match }: Props) => {
                         </IconButton>
                     }
                     title="NOTE DETAIL"
+                    className={classes.header}
                 />
                 <CardContent>
                     Id: {note.id}
