@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteDetail renders correctly 1`] = `
+Array [
+  <a
+    aria-current={null}
+    href="/1/edit"
+    onClick={[Function]}
+  >
+    Edit
+  </a>,
+  " ",
+  <a
+    aria-current="page"
+    className="active"
+    href="/"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    Home
+  </a>,
+  <h1>
+    NOTE DETAIL
+  </h1>,
+]
+`;
