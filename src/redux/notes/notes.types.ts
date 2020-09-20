@@ -5,6 +5,6 @@ export type Note = {
 
 export type NotesState = {
     loading: boolean
-    notes: Note[]
+    data: Note[]
     error: string | null
 }

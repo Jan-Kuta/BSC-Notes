@@ -4,11 +4,11 @@ import {NotesActionTypes} from './notesActionTypes';
 
 const initialState: NotesState = {
     loading: false,
-    notes: [],
+    data: [],
     error: null
 };
 
-function notesReducer(state: NotesState = initialState, action: NotesActions) {
+function notesReducer(state: NotesState = initialState, action: NotesActions): NotesState {
     switch (action.type) {
         case NotesActionTypes.LOAD_NOTES_REQUEST:
         case NotesActionTypes.ADD_NOTE_REQUEST:
@@ -24,28 +24,28 @@ function notesReducer(state: NotesState = initialState, action: NotesActions) {
             return {
                 ...state,
                 loading: false,
-                notes: action.payload
+                data: action.payload
             };
 
         case NotesActionTypes.ADD_NOTE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                notes: [...state.notes, action.payload]
+                data: [...state.data, action.payload]
             };
 
         case NotesActionTypes.DELETE_NOTE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                notes: state.notes.filter(note => note.id !== action.payload)
+                data: state.data.filter(note => note.id !== action.payload)
             };
 
         case NotesActionTypes.UPDATE_NOTE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                notes: state.notes.map(note => note.id === action.payload.id ? action.payload : note)
+                data: state.data.map(note => note.id === action.payload.id ? action.payload : note)
             };
 
         case NotesActionTypes.SET_NOTE_FAILURE:
