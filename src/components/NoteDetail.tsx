@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -62,11 +62,6 @@ const useStyles = makeStyles((theme) => ({
 const PureNoteDetail = ({ match }: Props) => {
     const dispatch = useDispatch();
     const note = useSelector((state: RootState) => state.notes.data.find((note) => note.id.toString() === match.params.id));
-    useEffect(() => {
-        if(!note) {
-            dispatch(goBack('/'))
-        }
-    }, [dispatch, note]);
     const classes = useStyles();
 
     if (! note) {

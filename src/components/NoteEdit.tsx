@@ -54,10 +54,10 @@ export const NoteEdit = ({match}: Props) => {
     const loading = useSelector((state: RootState) => state.notes.loading);
     const [title, setTitle] = useState(note?.title || '');
     useEffect(() => {
-        if(!note) {
-            dispatch(goBack('/'))
+        if(note) {
+            setTitle(note.title);
         }
-    }, [dispatch, note]);
+    }, [note]);
     const classes = useStyles();
 
     if (! note) {

@@ -31,7 +31,8 @@ export const NoteCreator = () => {
                 InputProps={{endAdornment: (
                     <IconButton  onClick={() => {
                         if (title && title.length > 0) {
-                            dispatch(addNote(title))
+                            dispatch(addNote(title));
+                            setTitle('');
                         }
                     }}>
                         <Save />

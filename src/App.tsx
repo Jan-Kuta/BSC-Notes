@@ -7,6 +7,8 @@ import {NoteList} from './components/NoteList';
 import {NoteDetail} from './components/NoteDetail';
 import {NoteEdit} from './components/NoteEdit';
 import {store, history} from './redux/rootReducer';
+import './i18n';
+import {LangSwitcher} from './components/LangSwitcher';
 
 const GlobalStyle = createGlobalStyle`
     html, body, #root {
@@ -17,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
 const Wrapper = styled.div`
   background: whiteSmoke;
   height: 100%;
+  padding-top: 80px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
 `;
@@ -26,6 +30,7 @@ const App = () => {
       <>
           <GlobalStyle />
           <Wrapper>
+              <LangSwitcher />
               <Provider store={store}>
                   <Router history={history}>
                     <Switch>
