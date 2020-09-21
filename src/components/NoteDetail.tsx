@@ -17,6 +17,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import styled from 'styled-components';
 import {ButtonWithDialog} from "./ButtonWithDialog";
 import {deleteNote} from "../redux/notes/notes.actions";
+import {useTranslation} from 'react-i18next';
 
 type MatchParams = {
     id: string
@@ -63,6 +64,7 @@ const PureNoteDetail = ({ match }: Props) => {
     const dispatch = useDispatch();
     const note = useSelector((state: RootState) => state.notes.data.find((note) => note.id.toString() === match.params.id));
     const classes = useStyles();
+    const { t } = useTranslation();
 
     if (! note) {
         return null;
@@ -77,7 +79,7 @@ const PureNoteDetail = ({ match }: Props) => {
                             <GoBackIcon/>
                         </IconButton>
                     }
-                    title="NOTE DETAIL"
+                    title={t('Note detail')}
                     className={classes.header}
                 />
                 <CardContent>
@@ -91,7 +93,7 @@ const PureNoteDetail = ({ match }: Props) => {
                     </FlexWrapper>
                     <FlexWrapper>
                         <FlexGrow1>
-                            <Typography variant="body1" gutterBottom>Title:</Typography>
+                            <Typography variant="body1" gutterBottom>{t('Title')}:</Typography>
                         </FlexGrow1>
                         <FlexGrow3>
                             <Typography variant="body1" gutterBottom>{note.title}</Typography>
@@ -101,16 +103,16 @@ const PureNoteDetail = ({ match }: Props) => {
                 <CardActions>
                     <SpaceBetweeenWrapper>
                         <ButtonWithDialog
-                            dialogTitle="Do you realy want to delete this item?"
-                            dialogDescription="It can't be undone."
+                            dialogTitle={t("Dialog title")}
+                            dialogDescription={t("Dialog description")}
                             onClick={() => {dispatch(deleteNote(parseInt(match.params.id)))}}
                             startIcon={<DeleteIcon />}
                             variant="contained"
                             color="secondary"
                         >
-                            Delete
+                            {t('Delete')}
                         </ButtonWithDialog>
-                        <Button onClick={()=> dispatch(push(`/${match.params.id}/edit`))} startIcon={<EditIcon />} variant="outlined" color="primary">Edit</Button>
+                        <Button onClick={()=> dispatch(push(`/${match.params.id}/edit`))} startIcon={<EditIcon />} variant="outlined" color="primary">{t('Edit')}</Button>
                     </SpaceBetweeenWrapper>
                 </CardActions>
             </Card>

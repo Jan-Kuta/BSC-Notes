@@ -7,13 +7,35 @@ const resources = {
     en: {
         translation: {
             "Language": "Language",
-            "Welcome to React": "Welcome to React and react-i18next"
+            "Note list": "Note list",
+            "New note": "New note",
+            "Note detail": "Note detail",
+            "Title": "Title",
+            "Delete": "Delete",
+            "Edit": "Edit",
+            "Dialog title": "Do you realy want to delete this item?",
+            "Dialog description": "It can't be undone.",
+            "Cancel": "Cancel",
+            "OK": "OK",
+            "Note edit": "Note edit",
+            "Submit": "Submit"
         }
     },
     cs: {
         translation: {
             "Language": "Jazyk",
-            "Welcome to React": "Welcome to React and react-i18next"
+            "Note list": "Poznámky",
+            "New note": "Nová poznámka",
+            "Note detail": "Detail poznámky",
+            "Title": "Popisek",
+            "Delete": "Smazat",
+            "Edit": "Upravit",
+            "Dialog title": "Opravdu si přejete smazat tuto položku?",
+            "Dialog description": "Tato akce nelze vrátit zpět.",
+            "Cancel": "Zrušit",
+            "OK": "Potvrdit",
+            "Note edit": "Úprava poznámky",
+            "Submit": "Uložit"
         }
     }
 };

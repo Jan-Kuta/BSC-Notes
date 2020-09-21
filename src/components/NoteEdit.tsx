@@ -16,6 +16,7 @@ import {RouteComponentProps} from 'react-router';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {updateNote} from "../redux/notes/notes.actions";
+import {useTranslation} from 'react-i18next';
 
 type MatchParams = {
     id: string
@@ -59,6 +60,7 @@ export const NoteEdit = ({match}: Props) => {
         }
     }, [note]);
     const classes = useStyles();
+    const { t } = useTranslation();
 
     if (! note) {
         return null;
@@ -68,13 +70,13 @@ export const NoteEdit = ({match}: Props) => {
         <div>
             <Card className={classes.root}>
                 <CardHeader
-                    title="NOTE EDIT"
+                    title={t('Note edit')}
                     className={classes.header}
                 />
                 <CardContent>
                     <TextField
                         variant="outlined"
-                        label="Title"
+                        label={t('Title')}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         multiline
@@ -83,8 +85,8 @@ export const NoteEdit = ({match}: Props) => {
                 </CardContent>
                 <CardActions>
                     <ButtonsWrapper>
-                        <Button onClick={() => dispatch(goBack(`/${match.params.id}`))} startIcon={<CancelIcon />} variant="contained" color="secondary">Cancel</Button>
-                        <Button onClick={() => dispatch(updateNote({...note, title}))} startIcon={<SubmitIcon />} variant="outlined" color="primary">Submit</Button>
+                        <Button onClick={() => dispatch(goBack(`/${match.params.id}`))} startIcon={<CancelIcon />} variant="contained" color="secondary">{t('Cancel')}</Button>
+                        <Button onClick={() => dispatch(updateNote({...note, title}))} startIcon={<SubmitIcon />} variant="outlined" color="primary">{t('Submit')}</Button>
                     </ButtonsWrapper>
                 </CardActions>
             </Card>

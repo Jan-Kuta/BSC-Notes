@@ -14,6 +14,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {useTranslation} from 'react-i18next';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,11 +33,12 @@ export const NoteList = () => {
     const notes = useSelector((state: RootState) => state.notes.data);
     const loading = useSelector((state: RootState) => state.notes.loading);
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return(
         <div>
             <Typography variant="h3" gutterBottom>
-                NOTE LIST
+                {t('Note list')}
             </Typography>
             {!!notes.length && (
                 <List className={classes.root}>

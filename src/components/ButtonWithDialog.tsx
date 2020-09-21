@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {useTranslation} from 'react-i18next';
 
 type Props = ButtonProps & {
     dialogTitle: string
@@ -14,6 +15,7 @@ type Props = ButtonProps & {
 
 export const ButtonWithDialog: FunctionComponent<Props> = ({dialogTitle, dialogDescription, children, onClick, ...buttonProps} :Props) => {
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,7 +42,7 @@ export const ButtonWithDialog: FunctionComponent<Props> = ({dialogTitle, dialogD
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
-                        Cancel
+                        {t('Cancel')}
                     </Button>
                     <Button
                         onClick={(e) => {
@@ -52,7 +54,7 @@ export const ButtonWithDialog: FunctionComponent<Props> = ({dialogTitle, dialogD
                         }}
                         color="primary"
                     >
-                        OK
+                        {t('OK')}
                     </Button>
                 </DialogActions>
             </Dialog>
