@@ -12,7 +12,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/rootReducer';
-import {RouteComponentProps} from 'react-router';
+import {useRouteMatch} from 'react-router';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {updateNote} from "../redux/notes/notes.actions";
@@ -21,8 +21,6 @@ import {useTranslation} from 'react-i18next';
 type MatchParams = {
     id: string
 }
-
-type Props = RouteComponentProps<MatchParams>
 
 const ButtonsWrapper = styled.div`
     display: flex;
@@ -40,26 +38,25 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexFlow: 'row-reverse'
     },
-    backButton: {
-        marginRight: '12px',
-    },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
 }));
 
-export const NoteEdit = ({match}: Props) => {
+export const NoteEdit = () => {
     const dispatch = useDispatch();
+    const textRef = React.useRef();
+    const match = useRouteMatch<MatchParams>();
     const note = useSelector((state: RootState) => state.notes.data.find((note) => note.id.toString() === match.params.id));
     const loading = useSelector((state: RootState) => state.notes.loading);
     const [title, setTitle] = useState(note?.title || '');
+    const classes = useStyles();
     useEffect(() => {
         if(note) {
             setTitle(note.title);
         }
     }, [note]);
-    const classes = useStyles();
     const { t } = useTranslation();
 
     if (! note) {
@@ -76,6 +73,7 @@ export const NoteEdit = ({match}: Props) => {
                 <CardContent>
                     <TextField
                         variant="outlined"
+                        inputRef={textRef}
                         label={t('Title')}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}

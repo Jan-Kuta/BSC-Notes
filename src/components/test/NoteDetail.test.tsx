@@ -1,16 +1,28 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {MemoryRouter} from 'react-router';
+import {MemoryRouter, Route} from 'react-router';
 
 import {NoteDetail} from '../NoteDetail';
+import {getMockProvider} from "./MockStore";
 
-it('NoteDetail renders correctly', () => {
-    const tree = renderer
-        .create(
-            <MemoryRouter>
-                <NoteDetail />
-            </MemoryRouter>
-        )
-            .toJSON();
-    expect(tree).toMatchSnapshot();
+describe("NoteDetail", () => {
+    let component: renderer.ReactTestRendererJSON | renderer.ReactTestRendererJSON[] | null;
+
+    beforeEach(() => {
+        const { MockProvider } = getMockProvider({});
+        component = renderer
+            .create(
+                <MockProvider>
+                    <MemoryRouter initialEntries={['/1']}>
+                        <Route path="/:id">
+                            <NoteDetail />
+                        </Route>
+                    </MemoryRouter>
+                </MockProvider>
+            ).toJSON()
+    });
+
+    it("it should work", () => {
+        expect(component).toMatchSnapshot();
+    });
 });

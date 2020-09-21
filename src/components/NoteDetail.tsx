@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {useRouteMatch} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Card from '@material-ui/core/Card';
@@ -23,8 +23,6 @@ type MatchParams = {
     id: string
 }
 
-type Props = RouteComponentProps<MatchParams>
-
 const SpaceBetweeenWrapper = styled.div`
     display: flex;
     justify-content: space-between;
@@ -47,8 +45,7 @@ const FlexGrow3 = styled.div`
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '20px',
-        width: '100%',
-        maxWidth: '320px',
+        width: '300px',
         backgroundColor: theme.palette.background.paper,
     },
     header: {
@@ -60,8 +57,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PureNoteDetail = ({ match }: Props) => {
+export const NoteDetail = () => {
     const dispatch = useDispatch();
+    const match = useRouteMatch<MatchParams>();
     const note = useSelector((state: RootState) => state.notes.data.find((note) => note.id.toString() === match.params.id));
     const classes = useStyles();
     const { t } = useTranslation();
@@ -119,5 +117,3 @@ const PureNoteDetail = ({ match }: Props) => {
         </div>
     );
 };
-
-export const NoteDetail = withRouter(PureNoteDetail);
