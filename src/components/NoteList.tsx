@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {push} from 'redux-first-history';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {loadNotes} from '../redux/notes/notes.actions';
 import {RootState} from '../redux/rootReducer';
 import {NoteCreator} from './NoteCreator';
 import List from '@material-ui/core/List';
@@ -13,27 +12,25 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
-        maxWidth: '36ch',
+        width: '300px',
         backgroundColor: theme.palette.background.paper,
     },
-    inline: {
-        display: 'inline',
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
 }));
 
 export const NoteList = () => {
     const dispatch =  useDispatch();
     const notes = useSelector((state: RootState) => state.notes.data);
-    useEffect(() => {
-        // Kvuli tomu, ze se nepersistuji zmeny v API
-        if (notes.length === 0) {
-            dispatch((loadNotes()))
-        }
-    }, [dispatch, notes]);
+    const loading = useSelector((state: RootState) => state.notes.loading);
     const classes = useStyles();
 
     return(
@@ -58,6 +55,9 @@ export const NoteList = () => {
                 </List>
             )}
             <NoteCreator />
+            <Backdrop open={loading} className={classes.backdrop}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     );
 };

@@ -1,11 +1,19 @@
-import {all, put, takeLatest} from 'redux-saga/effects';
+import {all, fork, put, takeLatest} from 'redux-saga/effects';
 import {
     AddNoteRequestAction,
     DeleteNoteRequestAction,
     NotesActionTypes,
     UpdateNoteRequestAction
 } from "./notesActionTypes";
-import {addNoteSuccess, deleteNoteSuccess, loadNotesSuccess, setNoteFailure, updateNoteSuccess} from "./notes.actions";
+import {
+    addNoteSuccess,
+    deleteNoteSuccess,
+    loadNotes,
+    loadNotesSuccess,
+    setNoteFailure,
+    updateNoteSuccess
+} from "./notes.actions";
+import {goBack} from 'redux-first-history';
 
 const apiRoot = process.env.API_URL || 'http://private-9aad-note10.apiary-mock.com';
 
@@ -44,7 +52,8 @@ function* deleteNoteRequest(action: DeleteNoteRequestAction) {
             }
         });
         if (res.ok) {
-            yield put(deleteNoteSuccess(action.payload))
+            yield put(deleteNoteSuccess(action.payload));
+            yield put(goBack('/'))
         }
     } catch (err) {
         yield put(setNoteFailure(err))
@@ -61,17 +70,23 @@ function* updateNoteRequest(action: UpdateNoteRequestAction) {
             body: JSON.stringify({title: action.payload.title})
         });
         const data = yield res.json();
-        yield put(updateNoteSuccess(data))
+        yield put(updateNoteSuccess(data));
+        yield put(goBack(`/${action.payload.id}`))
     } catch (err) {
         yield put(setNoteFailure(err))
     }
 }
 
+function* initialSaga() {
+    yield put(loadNotes());
+}
+
 export default function* notesSaga() {
+    yield fork(initialSaga);
     yield all([
         takeLatest(NotesActionTypes.LOAD_NOTES_REQUEST, loadNotesRequest),
         takeLatest(NotesActionTypes.ADD_NOTE_REQUEST, addNoteRequest),
         takeLatest(NotesActionTypes.DELETE_NOTE_REQUEST, deleteNoteRequest),
-        takeLatest(NotesActionTypes.ADD_NOTE_REQUEST, updateNoteRequest)
+        takeLatest(NotesActionTypes.UPDATE_NOTE_REQUEST, updateNoteRequest)
     ])
 }

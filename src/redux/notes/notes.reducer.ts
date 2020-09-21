@@ -3,7 +3,7 @@ import {NotesActions} from './notesActionTypes';
 import {NotesActionTypes} from './notesActionTypes';
 
 const initialState: NotesState = {
-    loading: false,
+    loading: true,
     data: [],
     error: null
 };
